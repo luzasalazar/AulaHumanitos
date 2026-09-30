@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colores */
+  --color-morado: #882B8E;
+  --color-amarillo: #F9E05A;
+  --color-verde: #4A9B09;
+  --color-azul: #33BDF2;
+  --color-rosa: #F8528D;
+  --color-negro-suave: #1C1C1C;
+  --color-gris-claro: #F5F5F5;
+
+  /* Fuentes */
+  --font-poppins: 'Poppins', system-ui, sans-serif;
+  --font-montserrat: 'Montserrat', system-ui, sans-serif;
+  --font-opensans: 'Open Sans', system-ui, sans-serif;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./assets/fonts/Montserrat-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./assets/fonts/Montserrat-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('./assets/fonts/OpenSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('./assets/fonts/OpenSans-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+ 
+body {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+ 
