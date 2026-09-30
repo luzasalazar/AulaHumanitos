@@ -8,7 +8,7 @@ import Layout from '../../../core/ui/Layout';
  */
 export default function ModeloCuerpo() {
   return (
-    <Layout backTo={{ path: '/', label: 'Volver al inicio' }} eyebrow="Ciencias Naturales">
+    <Layout eyebrow="Ciencias Naturales">
       <h1 className="font-poppins font-bold text-3xl md:text-4xl text-negro-suave mb-4">
         Cuerpo Humano
       </h1>

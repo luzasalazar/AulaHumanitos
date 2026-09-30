@@ -1,25 +1,13 @@
 import { Link } from 'react-router-dom';
-import { Leaf, Calculator, Languages, type LucideIcon } from 'lucide-react';
 import type { Area } from '../types/area.types';
-
-interface AreaVisual {
-  icon: LucideIcon;
-  color: string;
-  tint: string;
-}
-
-const AREA_VISUALS: Record<string, AreaVisual> = {
-  'ciencias-naturales': { icon: Leaf, color: '#4A9B09', tint: '#EAF5E1' },
-  matematicas: { icon: Calculator, color: '#33BDF2', tint: '#E7F7FD' },
-  ingles: { icon: Languages, color: '#F8528D', tint: '#FDE9F1' },
-};
+import { AREA_VISUALS, DEFAULT_AREA_VISUAL } from './areaVisuals';
 
 interface AreaCardProps {
   area: Area;
 }
 
 export default function AreaCard({ area }: AreaCardProps) {
-  const visual = AREA_VISUALS[area.id] ?? AREA_VISUALS['ciencias-naturales'];
+  const visual = AREA_VISUALS[area.id] ?? DEFAULT_AREA_VISUAL;
   const Icon = visual.icon;
 
   const card = (
