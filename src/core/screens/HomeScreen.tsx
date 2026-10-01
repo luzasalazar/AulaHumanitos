@@ -23,8 +23,8 @@ export default function HomeScreen() {
       </div>
 
       <section className="mt-12">
-        <h2 className="font-montserrat font-semibold text-sm text-negro-suave/50 mb-4">
-          Otros recursos
+        <h2 className="font-montserrat font-semibold text-md text-negro-suave/50 mb-4">
+          Sección para docentes
         </h2>
         <Link
           to="/banco-material"

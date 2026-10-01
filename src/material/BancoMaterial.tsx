@@ -3,20 +3,30 @@ import { ChevronDown, Search } from 'lucide-react';
 import Layout from '../core/ui/Layout';
 import EmptyState from '../core/ui/EmptyState';
 import MaterialCard from './components/MaterialCard';
-import { materiales } from './data/materiales';
+import { materiales, TIPO_LABELS, type TipoMaterial } from './data/materiales';
 import { areaRegistry } from '../core/registry/areaRegistry';
 
 export default function BancoMaterial() {
   const [busqueda, setBusqueda] = useState('');
   const [materiaSeleccionada, setMateriaSeleccionada] = useState('todas');
+  const [tipoSeleccionado, setTipoSeleccionado] = useState<TipoMaterial | 'todos'>('todos');
 
-  // Opciones del filtro: se calculan a partir de las materias que
-  // realmente aparecen en los materiales registrados.
+  // Opciones de los filtros: se calculan a partir de lo que realmente
+  // aparece en los materiales registrados, así que se mantienen al día
+  // sin tener que tocar este archivo cada vez que agregas contenido.
   const opcionesMateria = useMemo(() => {
     const idsUnicos = Array.from(new Set(materiales.map((material) => material.materia)));
     return idsUnicos.map((id) => ({
       id,
       label: areaRegistry.find((area) => area.id === id)?.name ?? id,
+    }));
+  }, []);
+
+  const opcionesTipo = useMemo(() => {
+    const tiposUnicos = Array.from(new Set(materiales.map((material) => material.tipo)));
+    return tiposUnicos.map((tipo) => ({
+      tipo,
+      label: TIPO_LABELS[tipo],
     }));
   }, []);
 
@@ -26,7 +36,8 @@ export default function BancoMaterial() {
       .includes(busqueda.trim().toLowerCase());
     const coincideMateria =
       materiaSeleccionada === 'todas' || material.materia === materiaSeleccionada;
-    return coincideBusqueda && coincideMateria;
+    const coincideTipo = tipoSeleccionado === 'todos' || material.tipo === tipoSeleccionado;
+    return coincideBusqueda && coincideMateria && coincideTipo;
   });
 
   return (
@@ -80,7 +91,7 @@ export default function BancoMaterial() {
           />
         </div>
 
-        <div className="relative sm:w-56">
+        <div className="relative sm:w-45">
           <select
             value={materiaSeleccionada}
             onChange={(event) => setMateriaSeleccionada(event.target.value)}
@@ -91,6 +102,31 @@ export default function BancoMaterial() {
 
             {opcionesMateria.map((opcion) => (
               <option key={opcion.id} value={opcion.id}>
+                {opcion.label}
+              </option>
+            ))}
+          </select>
+
+          <ChevronDown
+            size={18}
+            className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-negro-suave/50"
+            aria-hidden="true"
+          />
+        </div>
+
+        <div className="relative sm:w-42">
+          <select
+            value={tipoSeleccionado}
+            onChange={(event) =>
+              setTipoSeleccionado(event.target.value as TipoMaterial | 'todos')
+            }
+            aria-label="Filtrar por tipo de material"
+            className="w-full appearance-none rounded-full border border-black/10 bg-white pl-5 pr-12 py-3 font-montserrat text-sm text-negro-suave focus:outline-none focus:ring-2 focus:ring-azul"
+          >
+            <option value="todos">Todos los tipos</option>
+
+            {opcionesTipo.map((opcion) => (
+              <option key={opcion.tipo} value={opcion.tipo}>
                 {opcion.label}
               </option>
             ))}

@@ -12,6 +12,13 @@ export interface Material {
   archivo: string;
 }
 
+/** Etiqueta para mostrar cada tipo de material en pantalla. */
+export const TIPO_LABELS: Record<TipoMaterial, string> = {
+  guia: 'Guía',
+  presentacion: 'Presentación',
+  infografia: 'Infografía',
+};
+
 /**
  * Registro del Banco de Material.
  *

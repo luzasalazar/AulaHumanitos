@@ -1,22 +1,20 @@
-import { FileText, Presentation, Image as ImageIcon, File as FileIcon, type LucideIcon } from 'lucide-react';
-import type { Material } from '../data/materiales';
+import { FileText, Presentation, Image as ImageIcon, type LucideIcon } from 'lucide-react';
+import { TIPO_LABELS, type Material, type TipoMaterial } from '../data/materiales';
 import { areaRegistry } from '../../core/registry/areaRegistry';
 import { AREA_VISUALS, DEFAULT_AREA_VISUAL } from '../../core/ui/areaVisuals';
 
-const ICONOS_POR_TIPO: Record<TipoMaterialKey, LucideIcon> = {
+const ICONOS_POR_TIPO: Record<TipoMaterial, LucideIcon> = {
   guia: FileText,
   presentacion: Presentation,
   infografia: ImageIcon,
 };
-
-type TipoMaterialKey = Material['tipo'];
 
 interface MaterialCardProps {
   material: Material;
 }
 
 export default function MaterialCard({ material }: MaterialCardProps) {
-  const Icon = ICONOS_POR_TIPO[material.tipo] ?? FileIcon;
+  const Icon = ICONOS_POR_TIPO[material.tipo];
   const visual = AREA_VISUALS[material.materia] ?? DEFAULT_AREA_VISUAL;
   const materiaLabel = areaRegistry.find((a) => a.id === material.materia)?.name ?? material.materia;
 
@@ -36,7 +34,7 @@ export default function MaterialCard({ material }: MaterialCardProps) {
       <div className="flex-1">
         <h3 className="font-poppins font-semibold text-base text-negro-suave">{material.titulo}</h3>
         <p className="font-montserrat text-sm text-negro-suave/60">
-          {materiaLabel} · {material.tipo}
+          {materiaLabel} · {TIPO_LABELS[material.tipo]}
         </p>
       </div>
     </a>
