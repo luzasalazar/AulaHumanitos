@@ -4,10 +4,9 @@ import { areaRegistry } from '../../core/registry/areaRegistry';
 import { AREA_VISUALS, DEFAULT_AREA_VISUAL } from '../../core/ui/areaVisuals';
 
 const ICONOS_POR_TIPO: Record<TipoMaterialKey, LucideIcon> = {
-  pdf: FileText,
-  pptx: Presentation,
-  docx: FileText,
-  imagen: ImageIcon,
+  guia: FileText,
+  presentacion: Presentation,
+  infografia: ImageIcon,
 };
 
 type TipoMaterialKey = Material['tipo'];
