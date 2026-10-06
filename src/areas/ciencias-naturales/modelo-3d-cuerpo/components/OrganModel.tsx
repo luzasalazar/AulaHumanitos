@@ -1,13 +1,12 @@
 import { useEffect, useMemo } from 'react';
 import { useGLTF } from '@react-three/drei';
 import type { ThreeEvent } from '@react-three/fiber';
-import { Color } from 'three';
 import type { Material, Mesh, Object3D } from 'three';
 import type { Organo } from '../data/organos';
 
 interface OrganModelProps {
   organo: Organo;
-  seleccionado: boolean;
+  atenuado: boolean;
   visible: boolean;
   onSelect: (id: Organo['id']) => void;
 }
@@ -26,7 +25,7 @@ function cloneWithMaterials(source: Object3D) {
   return clone;
 }
 
-export default function OrganModel({ organo, seleccionado, visible, onSelect }: OrganModelProps) {
+export default function OrganModel({ organo, atenuado, visible, onSelect }: OrganModelProps) {
   const { scene } = useGLTF(organo.modelPath);
   const model = useMemo(() => cloneWithMaterials(scene), [scene]);
 
@@ -37,26 +36,18 @@ export default function OrganModel({ organo, seleccionado, visible, onSelect }: 
       mesh.userData.organId = organo.id;
       const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
       materials.forEach((material) => {
-        const tinted = material as Material & { color?: Color };
-        if (tinted.color) {
-          if (material.userData.originalColor === undefined) material.userData.originalColor = tinted.color.getHex();
-          tinted.color.setHex(material.userData.originalColor);
-          if (seleccionado) tinted.color.lerp(new Color('#FFE082'), 0.4);
+        if (material.userData.originalOpacity === undefined) {
+          material.userData.originalOpacity = material.opacity;
+          material.userData.originalTransparent = material.transparent;
+          material.userData.originalDepthWrite = material.depthWrite;
         }
-        const emissive = (material as Material & { emissive?: { set: (color: string) => void; setHex: (color: number) => void; getHex: () => number }; emissiveIntensity?: number }).emissive;
-        if (emissive && material.userData.originalEmissive === undefined) {
-          material.userData.originalEmissive = emissive.getHex();
-          material.userData.originalEmissiveIntensity = (material as Material & { emissiveIntensity?: number }).emissiveIntensity ?? 0;
-        }
-        if (emissive) {
-          emissive.setHex(seleccionado ? 0xffd54a : material.userData.originalEmissive);
-          (material as Material & { emissiveIntensity?: number }).emissiveIntensity = seleccionado
-            ? 0.65
-            : material.userData.originalEmissiveIntensity;
-        }
+        material.transparent = atenuado ? true : material.userData.originalTransparent;
+        material.opacity = atenuado ? 0.12 : material.userData.originalOpacity;
+        material.depthWrite = atenuado ? false : material.userData.originalDepthWrite;
+        material.needsUpdate = true;
       });
     });
-  }, [model, organo.id, seleccionado]);
+  }, [model, organo.id, atenuado]);
 
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();

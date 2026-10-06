@@ -22,7 +22,7 @@ export default function HumanBody({ sistemaActivo, organoSeleccionado, onSelectO
         <OrganModel
           key={organo.id}
           organo={organo}
-          seleccionado={organo.id === organoSeleccionado}
+          atenuado={organoSeleccionado !== null && organo.id !== organoSeleccionado}
           visible={sistemaActivo === 'todos' || organo.sistemas.includes(sistemaActivo)}
           onSelect={onSelectOrgano}
         />

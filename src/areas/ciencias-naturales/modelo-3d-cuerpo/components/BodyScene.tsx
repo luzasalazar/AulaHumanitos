@@ -12,7 +12,7 @@ interface BodySceneProps {
   onSelectOrgano: (id: OrganId | null) => void;
 }
 
-const CENTRO_CUERPO: [number, number, number] = [0, 2.35, 0];
+const CENTRO_CUERPO: [number, number, number] = [0, 2.4, 0];
 
 export default function BodyScene({ sistemaActivo, organoSeleccionado, onSelectOrgano }: BodySceneProps) {
   const organoActivo = organos.find((o) => o.id === organoSeleccionado);
