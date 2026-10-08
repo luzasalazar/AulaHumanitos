@@ -19,7 +19,7 @@ type Perfil = [radio: number, y: number][];
 // espacio alrededor de los órganos; la cabeza cubre el cerebro (centrado en
 // y=3.72, con radio aproximado de 0.34 tras aplicar su escala).
 const PERFIL_TORSO: Perfil = [
-  [0.38, 0.55],
+  [0.38, 0.68],
   [0.49, 0.85],
   [0.52, 1.15],
   [0.54, 1.55],
@@ -105,8 +105,8 @@ export default function BodySilhouette() {
       <mesh geometry={brazo} material={piel} position={[-0.67, 2.95, 0]} raycast={() => null} />
       <mesh geometry={brazo} material={piel} position={[0.67, 2.95, 0]} raycast={() => null} />
 
-      <mesh geometry={pierna} material={piel} position={[-0.2, 0.55, 0]} raycast={() => null} />
-      <mesh geometry={pierna} material={piel} position={[0.2, 0.55, 0]} raycast={() => null} />
+      <mesh geometry={pierna} material={piel} position={[-0.2, 0.68, 0]} raycast={() => null} />
+      <mesh geometry={pierna} material={piel} position={[0.2, 0.68, 0]} raycast={() => null} />
     </group>
   );
 }
