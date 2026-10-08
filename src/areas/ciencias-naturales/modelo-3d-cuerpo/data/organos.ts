@@ -8,7 +8,6 @@ import intestinosModel from '../models/Intestinos.glb?url';
 import rinonesModel from '../models/Rinones.glb?url';
 import pancreasModel from '../models/Pancreas.glb?url';
 import tiroidesModel from '../models/Tiroides.glb?url';
-import timoModel from '../models/Timo.glb?url';
 import vejigaModel from '../models/Vejiga.glb?url';
 
 export type OrganId =
@@ -21,7 +20,6 @@ export type OrganId =
   | 'rinones'
   | 'pancreas'
   | 'tiroides'
-  | 'timo'
   | 'vejiga';
 
 export interface Organo {
@@ -64,25 +62,25 @@ export const organos: Organo[] = [
     id: 'higado', nombre: 'Hígado', modelPath: higadoModel, sistemas: ['digestivo'],
     descripcion: 'Es un órgano grande que ocupa la parte superior derecha del abdomen.',
     funcion: 'Procesa nutrientes, produce bilis y ayuda a limpiar la sangre.', datoCurioso: 'Puede regenerar parte de su tejido.', color: '#F9A65A',
-    position: [-0.12, 2.02, 0.02], rotation: [0, 0, 0], scale: 0.55,
+    position: [-0.12, 2.06, 0.02], rotation: [0, 0, 0], scale: 0.55,
   },
   {
     id: 'estomago', nombre: 'Estómago', modelPath: estomagoModel, sistemas: ['digestivo'],
     descripcion: 'Se encuentra en la parte superior izquierda del abdomen, bajo el diafragma.',
     funcion: 'Mezcla los alimentos con jugos digestivos para descomponerlos.', datoCurioso: 'Su capacidad cambia según cuánto comemos.', color: '#F9E05A',
-    position: [0.08, 1.98, 0.13], rotation: [0, 0, 0], scale: 0.46,
+    position: [0.08, 2.02, 0.13], rotation: [0, 0, 0], scale: 0.46,
   },
   {
     id: 'intestinos', nombre: 'Intestinos', modelPath: intestinosModel, sistemas: ['digestivo'],
     descripcion: 'Ocupan la zona central e inferior del abdomen, debajo del estómago.',
     funcion: 'Absorben nutrientes y agua, y ayudan a formar los desechos.', datoCurioso: 'El intestino delgado mide varios metros de largo.', color: '#E9A83A',
-    position: [0, 1.38, 0.08], rotation: [0, 0, 0], scale: 0.91,
+    position: [0, 1.48, 0.08], rotation: [0, 0, 0], scale: 0.91,
   },
   {
     id: 'rinones', nombre: 'Riñones', modelPath: rinonesModel, sistemas: ['urinario'],
     descripcion: 'El modelo muestra los dos riñones, situados detrás de los demás órganos abdominales.',
     funcion: 'Filtran la sangre y producen la orina.', datoCurioso: 'El riñón derecho suele quedar un poco más bajo que el izquierdo.', color: '#B65E72',
-    position: [0, 2.05, -0.28], rotation: [0, 0, 0], scale: 0.45,
+    position: [0, 1.84, -0.28], rotation: [0, 0, 0], scale: 0.53,
   },
   {
     id: 'pancreas', nombre: 'Páncreas', modelPath: pancreasModel, sistemas: ['digestivo', 'endocrino'],
@@ -97,15 +95,9 @@ export const organos: Organo[] = [
     position: [0, 3.17, -0.03 ], rotation: [0, 0, 0], scale: 0.23,
   },
   {
-    id: 'timo', nombre: 'Timo', modelPath: timoModel, sistemas: ['inmunologico'],
-    descripcion: 'Está detrás del esternón, en la parte superior del tórax.',
-    funcion: 'Ayuda a madurar células de defensa, sobre todo durante la infancia.', color: '#65B99A',
-    position: [0, 2.85, 0.23], rotation: [0, 0, 0], scale: 0.22,
-  },
-  {
     id: 'vejiga', nombre: 'Vejiga', modelPath: vejigaModel, sistemas: ['urinario'],
     descripcion: 'Es un órgano hueco situado en la parte inferior de la pelvis.',
     funcion: 'Almacena la orina hasta que el cuerpo la expulsa.', color: '#68A9D1',
-    position: [0, 0.82, 0.07], rotation: [0, 0, 0], scale: 0.36,
+    position: [0, 0.93, 0.07], rotation: [0, 0, 0], scale: 0.36,
   },
 ];

@@ -1,4 +1,4 @@
-export type SistemaId = 'digestivo' | 'respiratorio' | 'circulatorio' | 'nervioso' | 'endocrino' | 'urinario' | 'inmunologico';
+export type SistemaId = 'digestivo' | 'respiratorio' | 'circulatorio' | 'nervioso' | 'endocrino' | 'urinario';
 
 export interface Sistema {
   id: SistemaId;
@@ -40,9 +40,5 @@ export const sistemas: Sistema[] = [
   {
     id: 'urinario', nombre: 'Urinario', color: '#68A9D1',
     descripcion: 'Filtra la sangre y ayuda a eliminar desechos mediante la orina.',
-  },
-  {
-    id: 'inmunologico', nombre: 'Inmunológico', color: '#65B99A',
-    descripcion: 'Ayuda al cuerpo a reconocer y combatir infecciones.',
   },
 ];

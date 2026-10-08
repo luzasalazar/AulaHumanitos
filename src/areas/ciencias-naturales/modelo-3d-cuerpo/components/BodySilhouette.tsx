@@ -15,53 +15,53 @@ const LARGO_PIERNA = 2.3;
 
 type Perfil = [radio: number, y: number][];
 
-// Perfil del torso + cuello + cabeza, de abajo hacia arriba. Los puntos
-// están alineados con tus órganos reales: cintura (0.95-2.3) rodea
-// estómago/hígado/riñones/páncreas; pecho (2.6-2.9) rodea pulmones/corazón/
-// timo; cuello (3.08-3.45) rodea la tiroides; cabeza (3.55-4.1) rodea el
-// cerebro.
+// Perfil del torso + cuello + cabeza, de abajo hacia arriba. El tronco deja
+// espacio alrededor de los órganos; la cabeza cubre el cerebro (centrado en
+// y=3.72, con radio aproximado de 0.34 tras aplicar su escala).
 const PERFIL_TORSO: Perfil = [
-  [0.34, 0.55],
-  [0.4, 0.85],
-  [0.38, 1.15],
-  [0.3, 1.55],
-  [0.31, 1.95],
-  [0.37, 2.3],
-  [0.44, 2.6],
-  [0.46, 2.9],
-  [0.42, 3.0],
+  [0.38, 0.55],
+  [0.49, 0.85],
+  [0.52, 1.15],
+  [0.54, 1.55],
+  [0.55, 1.95],
+  [0.55, 2.3],
+  [0.56, 2.6],
+  [0.56, 2.9],
+  [0.5, 3.0],
   [0.2, 3.08],
   [0.15, 3.17],
-  [0.15, 3.45],
-  [0.19, 3.55],
-  [0.31, 3.7],
-  [0.31, 3.85],
-  [0.19, 4.0],
-  [0, 4.1],
+  [0.15, 3.3],
+  [0.24, 3.38],
+  [0.38, 3.48],
+  [0.42, 3.65],
+  [0.42, 3.86],
+  [0.38, 4.03],
+  [0.24, 4.15],
+  [0, 4.22],
 ];
 
 // Del hombro (y=0, local) hacia la mano (y negativo). Se posiciona a cada
 // lado del torso.
 const PERFIL_BRAZO: Perfil = [
-  [0.13, 0],
-  [0.11, -0.25],
-  [0.085, -0.75],
-  [0.075, -1.05],
-  [0.065, -1.55],
-  [0.085, -1.7],
-  [0.03, -1.85],
+  [0.15, 0],
+  [0.125, -0.25],
+  [0.095, -0.75],
+  [0.083, -1.05],
+  [0.072, -1.55],
+  [0.095, -1.7],
+  [0.035, -1.85],
 ];
 
 // De la cadera (y=0, local) hacia el pie (y negativo), escalado por
 // LARGO_PIERNA.
 const PERFIL_PIERNA: Perfil = [
-  [0.19, 0],
-  [0.17, -0.13 * LARGO_PIERNA],
-  [0.13, -0.32 * LARGO_PIERNA],
-  [0.11, -0.45 * LARGO_PIERNA],
-  [0.09, -0.62 * LARGO_PIERNA],
-  [0.11, -0.68 * LARGO_PIERNA],
-  [0.07, -0.76 * LARGO_PIERNA],
+  [0.21, 0],
+  [0.185, -0.13 * LARGO_PIERNA],
+  [0.145, -0.32 * LARGO_PIERNA],
+  [0.125, -0.45 * LARGO_PIERNA],
+  [0.1, -0.62 * LARGO_PIERNA],
+  [0.125, -0.68 * LARGO_PIERNA],
+  [0.08, -0.76 * LARGO_PIERNA],
 ];
 
 function perfilAPuntos(perfil: Perfil) {
@@ -102,11 +102,11 @@ export default function BodySilhouette() {
           los clics la atraviesan directo hacia los órganos. */}
       <mesh geometry={torso} material={piel} raycast={() => null} />
 
-      <mesh geometry={brazo} material={piel} position={[-0.5, 2.95, 0]} raycast={() => null} />
-      <mesh geometry={brazo} material={piel} position={[0.5, 2.95, 0]} raycast={() => null} />
+      <mesh geometry={brazo} material={piel} position={[-0.67, 2.95, 0]} raycast={() => null} />
+      <mesh geometry={brazo} material={piel} position={[0.67, 2.95, 0]} raycast={() => null} />
 
-      <mesh geometry={pierna} material={piel} position={[-0.2, 0.8, 0]} raycast={() => null} />
-      <mesh geometry={pierna} material={piel} position={[0.2, 0.8, 0]} raycast={() => null} />
+      <mesh geometry={pierna} material={piel} position={[-0.2, 0.55, 0]} raycast={() => null} />
+      <mesh geometry={pierna} material={piel} position={[0.2, 0.55, 0]} raycast={() => null} />
     </group>
   );
 }
