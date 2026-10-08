@@ -1,20 +1,25 @@
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import HumanBody from './HumanBody';
-import CameraFocus from './CameraFocus';
-import { organos } from '../data/organos';
-import type { OrganId } from '../data/organos';
-import type { SistemaId } from '../data/sistemas';
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import HumanBody from "./HumanBody";
+import BodySilhouette from "./BodySilhouette";
+import CameraFocus from "./CameraFocus";
+import { organos } from "../data/organos";
+import type { OrganId } from "../data/organos";
+import type { SistemaId } from "../data/sistemas";
 
 interface BodySceneProps {
-  sistemaActivo: SistemaId | 'todos';
+  sistemaActivo: SistemaId | "todos";
   organoSeleccionado: OrganId | null;
   onSelectOrgano: (id: OrganId | null) => void;
 }
 
 const CENTRO_CUERPO: [number, number, number] = [0, 2.4, 0];
 
-export default function BodyScene({ sistemaActivo, organoSeleccionado, onSelectOrgano }: BodySceneProps) {
+export default function BodyScene({
+  sistemaActivo,
+  organoSeleccionado,
+  onSelectOrgano,
+}: BodySceneProps) {
   const organoActivo = organos.find((o) => o.id === organoSeleccionado);
   const puntoDeEnfoque = organoActivo?.position ?? CENTRO_CUERPO;
 
@@ -28,6 +33,7 @@ export default function BodyScene({ sistemaActivo, organoSeleccionado, onSelectO
       <directionalLight position={[3, 5, 4]} intensity={2.1} />
       <directionalLight position={[-3, 2, -4]} intensity={0.8} />
 
+      <BodySilhouette />
       <HumanBody
         sistemaActivo={sistemaActivo}
         organoSeleccionado={organoSeleccionado}

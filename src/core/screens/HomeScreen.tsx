@@ -3,6 +3,7 @@ import { FolderOpen, ChevronRight } from 'lucide-react';
 import Layout from '../ui/Layout';
 import AreaCard from '../ui/AreaCard';
 import { areaRegistry } from '../registry/areaRegistry';
+import vicky from '../../assets/vicky.png';
 
 export default function HomeScreen() {
   return (
@@ -22,26 +23,48 @@ export default function HomeScreen() {
         ))}
       </div>
 
-      <section className="mt-12">
-        <h2 className="font-montserrat font-semibold text-md text-negro-suave/50 mb-4">
+      <section className="mt-10">
+        <h2 className="font-montserrat font-semibold text-md text-negro-suave/50 mb-3">
           Sección para docentes
         </h2>
+
         <Link
           to="/banco-material"
-          className="group flex items-center gap-5 bg-white rounded-2xl border-l-4 border-morado shadow-sm p-6 transition-all hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-morado"
+          className="group flex items-center w-full h-36 bg-white rounded-2xl border-l-4 border-morado shadow-sm px-6 transition-all hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-morado"
         >
+          {/* Icono */}
           <div className="w-14 h-14 rounded-xl bg-morado/10 flex items-center justify-center shrink-0">
-            <FolderOpen size={26} color="#882B8E" aria-hidden="true" />
+            <FolderOpen
+              size={26}
+              color="#882B8E"
+              aria-hidden="true"
+            />
           </div>
-          <div className="flex-1">
-            <h3 className="font-poppins font-semibold text-lg text-negro-suave">Banco de Material</h3>
+
+          {/* Texto */}
+          <div className="ml-5 shrink-0 max-w-[400px]">
+            <h3 className="font-poppins font-semibold text-lg text-negro-suave">
+              Banco de Material
+            </h3>
+
             <p className="font-montserrat text-sm text-negro-suave/60">
               Guías y presentaciones de apoyo para todas las materias.
             </p>
           </div>
+
+          {/* Profesora: ocupa todo el espacio disponible */}
+          <div className="flex-1 h-full flex items-end justify-center overflow-hidden">
+            <img
+              src={vicky}
+              alt=""
+              className="max-h-[90%] w-full object-contain object-bottom"
+            />
+          </div>
+
+          {/* Flecha */}
           <ChevronRight
             size={22}
-            className="text-negro-suave/30 group-hover:text-morado transition-colors shrink-0"
+            className="text-negro-suave/30 group-hover:text-morado transition-colors shrink-0 ml-4"
             aria-hidden="true"
           />
         </Link>

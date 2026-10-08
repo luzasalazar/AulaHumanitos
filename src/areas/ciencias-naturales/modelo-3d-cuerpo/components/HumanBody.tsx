@@ -12,10 +12,18 @@ interface HumanBodyProps {
 }
 
 function Modelos() {
-  return <Html center className="pointer-events-none whitespace-nowrap rounded-lg bg-white/90 px-3 py-2 text-sm text-slate-600 shadow">Cargando modelos…</Html>;
+  return (
+    <Html center className="pointer-events-none whitespace-nowrap rounded-lg bg-white/90 px-3 py-2 text-sm text-slate-600 shadow">
+      Cargando modelos…
+    </Html>
+  );
 }
 
-export default function HumanBody({ sistemaActivo, organoSeleccionado, onSelectOrgano }: HumanBodyProps) {
+export default function HumanBody({
+  sistemaActivo,
+  organoSeleccionado,
+  onSelectOrgano,
+}: HumanBodyProps) {
   return (
     <Suspense fallback={<Modelos />}>
       {organos.map((organo) => (
