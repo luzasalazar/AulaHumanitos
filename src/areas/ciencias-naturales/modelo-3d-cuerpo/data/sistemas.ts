@@ -1,4 +1,4 @@
-export type SistemaId = 'digestivo' | 'respiratorio' | 'circulatorio' | 'nervioso' | 'endocrino' | 'urinario';
+export type SistemaId = 'digestivo' | 'respiratorio' | 'circulatorio' | 'nervioso';
 
 export interface Sistema {
   id: SistemaId;
@@ -11,34 +11,26 @@ export interface Sistema {
 export const sistemas: Sistema[] = [
   {
     id: 'digestivo',
-    nombre: 'Digestivo',
+    nombre: '🍎 Sistema Digestivo',
     color: '#F9E05A',
     descripcion: 'Transforma los alimentos que comemos en la energía que el cuerpo necesita.',
   },
   {
     id: 'respiratorio',
-    nombre: 'Respiratorio',
+    nombre: '🫁 SistemaRespiratorio',
     color: '#33BDF2',
     descripcion: 'Nos permite respirar y llevar oxígeno a todo el cuerpo.',
   },
   {
     id: 'circulatorio',
-    nombre: 'Circulatorio',
-    color: '#F8528D',
+    nombre: '❤️ Sistema Circulatorio',
+    color: '#fa7ca8',
     descripcion: 'Lleva la sangre por todo el cuerpo gracias al corazón y los vasos sanguíneos.',
   },
   {
     id: 'nervioso',
-    nombre: 'Nervioso',
+    nombre: '🧠 Sistema Nervioso',
     color: '#882B8E',
     descripcion: 'Controla lo que hacemos y sentimos, enviando mensajes por todo el cuerpo.',
-  },
-  {
-    id: 'endocrino', nombre: 'Endocrino', color: '#9B7ADE',
-    descripcion: 'Produce hormonas que regulan distintas funciones del cuerpo.',
-  },
-  {
-    id: 'urinario', nombre: 'Urinario', color: '#68A9D1',
-    descripcion: 'Filtra la sangre y ayuda a eliminar desechos mediante la orina.',
   },
 ];

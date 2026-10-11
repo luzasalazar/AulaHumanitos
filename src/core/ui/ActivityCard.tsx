@@ -17,13 +17,13 @@ export default function ActivityCard({ activity, icon: Icon, color, tint }: Acti
     >
       <div
         className="h-36 w-full flex items-center justify-center overflow-hidden"
-        style={{ backgroundColor: tint }}
+        style={{ backgroundColor: activity.image ? 'transparent' : tint }}
       >
         {activity.image ? (
           <img
             src={activity.image}
             alt={`Vista previa de ${activity.title}`}
-            className="h-full w-full object-contain p-4"
+            className="h-full w-full object-cover "
           />
         ) : (
           <Icon size={40} color={color} strokeWidth={1.75} aria-hidden="true" />

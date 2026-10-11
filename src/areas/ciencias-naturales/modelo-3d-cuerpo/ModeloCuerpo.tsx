@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Layout from '../../../core/ui/Layout';
 import SystemFilters from './components/SystemFilters';
-import BodyScene from './components/BodyScene';
+import BodyVideo from './components/BodyVideo';
 import OrganList from './components/OrganList';
 import OrganInfoPanel from './components/OrganInfoPanel';
 import type { OrganId } from './data/organos';
 import type { SistemaId } from './data/sistemas';
+import { videosPorSistema } from './data/videos';
 
 export default function ModeloCuerpo() {
   const [sistemaActivo, setSistemaActivo] = useState<SistemaId | 'todos'>('todos');
@@ -18,12 +19,12 @@ export default function ModeloCuerpo() {
 
   return (
     <Layout eyebrow="Ciencias Naturales">
-      <h1 className="font-poppins font-bold text-3xl md:text-4xl text-negro-suave mb-2">
+      <h1 className="font-poppins font-bold text-3xl md:text-4xl text-negro-suave mb-2 text-center">
         Cuerpo Humano
       </h1>
-      <p className="font-montserrat text-sm text-negro-suave/60 mb-6">
-        Gira el modelo arrastrando el mouse, acércate con la rueda y toca un órgano para
-        descubrir qué hace.
+      <p className="font-montserrat text-sm text-negro-suave/60 mb-8 text-center">
+        Explora los videos de cada sistema del cuerpo y selecciona un órgano para descubrir
+        qué hace.
       </p>
 
       {/* Zona 1: navegación por sistema */}
@@ -32,16 +33,12 @@ export default function ModeloCuerpo() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
-        {/* Zona 2: modelo 3D interactivo */}
+        {/* Zona 2: reproductor de video */}
         <div
           className="rounded-3xl overflow-hidden border border-black/5"
           style={{ height: '480px', background: 'linear-gradient(180deg, #EAF5E1, #FFFFFF)' }}
         >
-          <BodyScene
-            sistemaActivo={sistemaActivo}
-            organoSeleccionado={organoSeleccionado}
-            onSelectOrgano={setOrganoSeleccionado}
-          />
+          <BodyVideo key={sistemaActivo} src={videosPorSistema[sistemaActivo]} />
         </div>
 
         {/* Zona 3: lista de órganos + información educativa */}

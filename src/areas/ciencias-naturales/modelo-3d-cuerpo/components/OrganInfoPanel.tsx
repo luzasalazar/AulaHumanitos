@@ -16,8 +16,8 @@ export default function OrganInfoPanel({ organoId, sistemaActivo }: OrganInfoPan
       <div className="rounded-2xl border-2 border-dashed border-black/10 bg-white p-5 text-center">
         <p className="font-montserrat text-sm text-negro-suave/60">
           {sistema
-            ? `Toca un órgano del sistema ${sistema.nombre.toLowerCase()} para conocer más sobre él.`
-            : 'Toca un órgano del modelo o de la lista para conocer más sobre él.'}
+            ? `Selecciona un órgano del sistema ${sistema.id.toLowerCase()} para conocer más sobre él.`
+            : 'Selecciona un órgano de la lista para conocer más sobre él.'}
         </p>
       </div>
     );

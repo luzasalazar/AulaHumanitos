@@ -17,7 +17,6 @@ export default function AreaActivities() {
 
   const activities = activitiesByArea[area.id] ?? [];
   const visual = AREA_VISUALS[area.id] ?? DEFAULT_AREA_VISUAL;
-  const Icon = visual.icon;
 
   return (
     <Layout>

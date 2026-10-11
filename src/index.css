@@ -71,4 +71,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+video.body-video:fullscreen {
+  object-fit: contain;
+  background-color: #000;
+}
+
+video.body-video:-webkit-full-screen {
+  object-fit: contain;
+  background-color: #000;
+}
  

@@ -1,4 +1,4 @@
-import cuerpoHumanoPreview from '../../assets/previews/cuerpo-humano.svg';
+import cuerpoHumanoPreview from '../../assets/previews/cuerpo-humano.png';
 
 export interface Activity {
   id: string;
@@ -28,8 +28,8 @@ export const activitiesByArea: Record<string, Activity[]> = {
   'ciencias-naturales': [
     {
       id: 'cuerpo-humano',
-      title: 'Modelo del Cuerpo Humano',
-      description: 'Explora los sistemas y órganos del cuerpo humano en un modelo interactivo en 3D.',
+      title: 'Cuerpo Humano',
+      description: 'Explora los sistemas del cuerpo humano con videos y aprende sobre sus órganos.',
       path: '/ciencias-naturales/cuerpo-humano',
       image: cuerpoHumanoPreview,
     },
