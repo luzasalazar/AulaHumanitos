@@ -36,7 +36,7 @@ export default function ModeloCuerpo() {
         {/* Zona 2: reproductor de video */}
         <div
           className="rounded-3xl overflow-hidden border border-black/5"
-          style={{ height: '480px', background: 'linear-gradient(180deg, #EAF5E1, #FFFFFF)' }}
+          style={{ background: 'linear-gradient(180deg, #EAF5E1, #FFFFFF)' }}
         >
           <BodyVideo key={sistemaActivo} src={videosPorSistema[sistemaActivo]} />
         </div>
