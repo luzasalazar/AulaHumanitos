@@ -22,7 +22,7 @@ export default function OrganList({ sistemaActivo, organoSeleccionado, onSelect 
               type="button"
               onClick={() => onSelect(organo.id)}
               aria-pressed={activo}
-              className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-left font-montserrat text-sm transition-colors ${
+              className={`w-full cursor-pointer flex items-center gap-3 rounded-xl px-3 py-2.5 text-left font-montserrat text-sm transition-colors ${
                 activo
                   ? 'bg-black/5 font-semibold text-negro-suave'
                   : 'text-negro-suave/70 hover:bg-black/5'

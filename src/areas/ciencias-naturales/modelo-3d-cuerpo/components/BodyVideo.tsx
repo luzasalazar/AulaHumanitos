@@ -162,7 +162,7 @@ export default function BodyVideo({ src }: BodyVideoProps) {
         <div className="mt-4 flex items-center justify-center gap-5">
           <button
             type="button"
-            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full bg-morado px-4 text-white shadow-sm transition hover:bg-[#702477] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-morado"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full bg-amarillo px-4 text-morado shadow-sm transition hover:bg-[#E8CE3D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amarillo"
             onClick={handlePlayPause}
             disabled={duration <= 0}
             aria-label={isPlaying ? 'Pausar video' : 'Reproducir video'}

@@ -13,7 +13,7 @@ export default function SystemFilters({ sistemaActivo, onSelect }: SystemFilters
         type="button"
         onClick={() => onSelect('todos')}
         aria-pressed={sistemaActivo === 'todos'}
-        className={`font-poppins font-semibold text-sm rounded-full px-5 py-2.5 border transition-colors ${
+        className={`cursor-pointer font-poppins font-semibold text-sm rounded-full px-5 py-2.5 border transition-colors ${
           sistemaActivo === 'todos'
             ? 'bg-verde text-white border-verde'
             : 'bg-white text-negro-suave/70 border-black/10 hover:border-verde/50'
@@ -30,7 +30,7 @@ export default function SystemFilters({ sistemaActivo, onSelect }: SystemFilters
             type="button"
             onClick={() => onSelect(sistema.id)}
             aria-pressed={activo}
-            className="font-poppins font-semibold text-sm rounded-full px-5 py-2.5 border transition-colors"
+            className="cursor-pointer font-poppins font-semibold text-sm rounded-full px-5 py-2.5 border transition-colors"
             style={
               activo
                 ? { backgroundColor: sistema.color, color: '#1C1C1C', borderColor: sistema.color }
