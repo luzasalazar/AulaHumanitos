@@ -121,7 +121,7 @@ export default function BancoMaterial() {
               setTipoSeleccionado(event.target.value as TipoMaterial | 'todos')
             }
             aria-label="Filtrar por tipo de material"
-            className="w-full appearance-none rounded-full border border-black/10 bg-white pl-5 pr-12 py-3 font-montserrat text-sm text-negro-suave focus:outline-none focus:ring-2 focus:ring-azul"
+            className="w-full appearance-none rounded-full border border-black/10 bg-white pl-5 pr-8 py-3 font-montserrat text-sm text-negro-suave focus:outline-none focus:ring-2 focus:ring-azul"
           >
             <option value="todos">Todos los tipos</option>
 
