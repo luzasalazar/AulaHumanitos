@@ -1,8 +1,20 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { useLayoutEffect } from 'react';
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import HomeScreen from '../screens/HomeScreen';
 import AreaActivities from '../screens/AreaActivities';
 import BancoMaterial from '../../material/BancoMaterial';
 import ModeloCuerpo from '../../areas/ciencias-naturales/modelo-3d-cuerpo/ModeloCuerpo';
+
+function ScrollToTop() {
+  const { key } = useLocation();
+
+  useLayoutEffect(() => {
+    window.history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+  }, [key]);
+
+  return null;
+}
 
 /**
  * Se usa HashRouter (en vez de BrowserRouter) porque la app se sirve
@@ -16,6 +28,7 @@ import ModeloCuerpo from '../../areas/ciencias-naturales/modelo-3d-cuerpo/Modelo
 export default function AppRouter() {
   return (
     <HashRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route path="/banco-material" element={<BancoMaterial />} />
