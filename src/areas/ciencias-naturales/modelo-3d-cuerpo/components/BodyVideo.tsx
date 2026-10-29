@@ -1,7 +1,14 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface BodyVideoProps {
   src: string;
+}
+
+/** Tiempo máximo que esperamos a que termine un salto antes de forzar el siguiente. */
+const SEEK_TIMEOUT_MS = 400;
+
+function mimeFromSrc(src: string) {
+  return src.toLowerCase().split('?')[0].endsWith('.webm') ? 'video/webm' : 'video/mp4';
 }
 
 export default function BodyVideo({ src }: BodyVideoProps) {
@@ -9,12 +16,58 @@ export default function BodyVideo({ src }: BodyVideoProps) {
   const isSeekingRef = useRef(false);
   // Último destino pedido por la barra que todavía no se aplicó al video.
   const pendingTimeRef = useRef<number | null>(null);
+  // Cuándo empezó el último salto (para detectar uno que nunca termina).
+  const seekStartedAtRef = useRef(0);
+  const retryTimerRef = useRef<number | null>(null);
   // Si el video se estaba reproduciendo al empezar a arrastrar la barra.
   const wasPlayingRef = useRef(false);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [duration, setDuration] = useState(0);
   const [progress, setProgress] = useState(0.5);
   const [isPlaying, setIsPlaying] = useState(false);
   const [unavailable, setUnavailable] = useState(false);
+
+  /**
+   * Carga el archivo completo en memoria y lo reproduce desde una URL `blob:`.
+   * En la app de escritorio el video lo sirve el protocolo interno de Tauri,
+   * que puede no responder a peticiones por rangos (Range), y sin eso el
+   * navegador no puede saltar a otra posición. Una URL `blob:` la sirve el
+   * propio navegador y siempre permite saltar.
+   */
+  useEffect(() => {
+    let cancelled = false;
+    let objectUrl: string | null = null;
+
+    setVideoUrl(null);
+    setUnavailable(false);
+
+    fetch(src)
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.blob();
+      })
+      .then((blob) => {
+        if (cancelled) return;
+        const typed = blob.type ? blob : new Blob([blob], { type: mimeFromSrc(src) });
+        objectUrl = URL.createObjectURL(typed);
+        setVideoUrl(objectUrl);
+      })
+      .catch(() => {
+        if (!cancelled) setUnavailable(true);
+      });
+
+    return () => {
+      cancelled = true;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, [src]);
+
+  useEffect(
+    () => () => {
+      if (retryTimerRef.current !== null) window.clearTimeout(retryTimerRef.current);
+    },
+    [],
+  );
 
   const handleLoadedMetadata = () => {
     const video = videoRef.current;
@@ -38,15 +91,21 @@ export default function BodyVideo({ src }: BodyVideoProps) {
 
   /**
    * Aplica el destino pendiente solo si no hay otro salto en curso. Si lo hay,
-   * se queda pendiente y `onSeeked` lo aplicará apenas termine. Así nunca
-   * cancelamos un salto a medias, y el navegador alcanza a pintar fotogramas
-   * mientras se arrastra la barra.
+   * se queda pendiente y `onSeeked` lo aplicará apenas termine. Así no
+   * cancelamos saltos a medias y el navegador alcanza a pintar fotogramas
+   * mientras se arrastra la barra. Si un salto lleva demasiado sin terminar,
+   * se considera atascado y se permite el siguiente.
    */
   const applyPendingSeek = () => {
     const video = videoRef.current;
     const target = pendingTimeRef.current;
-    if (!video || target === null || video.seeking) return;
+    if (!video || target === null) return;
+
+    const stuck = video.seeking && performance.now() - seekStartedAtRef.current > SEEK_TIMEOUT_MS;
+    if (video.seeking && !stuck) return;
+
     pendingTimeRef.current = null;
+    seekStartedAtRef.current = performance.now();
     video.currentTime = target;
   };
 
@@ -55,6 +114,11 @@ export default function BodyVideo({ src }: BodyVideoProps) {
     if (duration <= 0) return;
     pendingTimeRef.current = value * duration;
     applyPendingSeek();
+
+    // Red de seguridad: si quedó un destino pendiente y `seeked` nunca llega,
+    // lo reintentamos poco después.
+    if (retryTimerRef.current !== null) window.clearTimeout(retryTimerRef.current);
+    retryTimerRef.current = window.setTimeout(applyPendingSeek, SEEK_TIMEOUT_MS + 50);
   };
 
   const handleScrubStart = () => {
@@ -112,7 +176,7 @@ export default function BodyVideo({ src }: BodyVideoProps) {
         <video
           ref={videoRef}
           className="body-video h-full w-full object-cover"
-          src={src}
+          src={videoUrl ?? undefined}
           muted
           playsInline
           preload="auto"
@@ -125,6 +189,11 @@ export default function BodyVideo({ src }: BodyVideoProps) {
           onEnded={() => setIsPlaying(false)}
           onError={() => setUnavailable(true)}
         />
+        {!videoUrl && !unavailable && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+            <p className="font-montserrat text-sm text-white">Cargando video…</p>
+          </div>
+        )}
         {unavailable && (
           <div className="absolute inset-0 flex items-center justify-center bg-[#EAF5E1] px-8 text-center">
             <p className="max-w-md font-montserrat text-sm text-negro-suave/70">
@@ -166,6 +235,7 @@ export default function BodyVideo({ src }: BodyVideoProps) {
             onClick={handlePlayPause}
             disabled={duration <= 0}
             aria-label={isPlaying ? 'Pausar video' : 'Reproducir video'}
+            title={isPlaying ? 'Pausar video' : 'Reproducir video'}
           >
             {isPlaying ? (
               <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 fill-current">
@@ -183,6 +253,7 @@ export default function BodyVideo({ src }: BodyVideoProps) {
             onClick={handleFullscreen}
             disabled={duration <= 0}
             aria-label="Ver video en pantalla completa"
+            title="Ver video en pantalla completa"
           >
             <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3" />

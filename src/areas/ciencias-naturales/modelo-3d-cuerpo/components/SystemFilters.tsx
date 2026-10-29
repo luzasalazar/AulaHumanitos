@@ -33,7 +33,7 @@ export default function SystemFilters({ sistemaActivo, onSelect }: SystemFilters
             className="cursor-pointer font-poppins font-semibold text-sm rounded-full px-5 py-2.5 border transition-colors"
             style={
               activo
-                ? { backgroundColor: sistema.color, color: '#1C1C1C', borderColor: sistema.color }
+                ? { backgroundColor: sistema.color, color: '#FFFFFF', borderColor: sistema.color }
                 : { backgroundColor: '#FFFFFF', color: 'rgba(28,28,28,0.6)', borderColor: 'rgba(0,0,0,0.1)' }
             }
           >

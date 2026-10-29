@@ -32,44 +32,9 @@ export const TIPO_LABELS: Record<TipoMaterial, string> = {
  *
  */
 export const materiales: Material[] = [
-    {
-        id: 'M001',
-        titulo: 'Guía de sumas',
-        materia: 'matematicas',
-        tipo: 'guia',
-        archivo: '/materiales/Guia_Sumas_y_Restas.pdf',
-    },
-    {
-        id: 'M002',
-        titulo: 'Aprendizaje de máquina',
-        materia: 'Tecnología',
-        tipo: 'presentacion',
-        archivo: '/materiales/Aprendizaje de maquina.pptx',
-    },
-    {
-        id: 'M003',
-        titulo: 'Guía energías renovables',
-        materia: 'ciencias-naturales',
-        tipo: 'guia',
-        archivo: '/materiales/Parcial 1_Localizacion Falla Parque Solar.pdf',
-    },
-    {
-        id: 'M004',
-        titulo: 'Teorema Maestro',
-        materia: 'matematicas',
-        tipo: 'presentacion',
-        archivo: '/materiales/Presentación-Teorema Maestro.pptx',
-    },
-    {
-        id: 'M005',
-        titulo: 'Taller Verbo To Be',
-        materia: 'ingles',
-        tipo: 'guia',
-        archivo: '/materiales/Taller_DOFA_Lumina_v1.pdf',
-    },
   // Ejemplo de cómo se vería una vez agregado un archivo real:
   // {
-  //   id: 'guia-fracciones',
+  //   id: 'M005',
   //   titulo: 'Guía de fracciones',
   //   materia: 'matematicas',
   //   tipo: 'guia',
