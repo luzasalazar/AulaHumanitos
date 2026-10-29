@@ -28,7 +28,7 @@ export default function ModeloCuerpo() {
       </p>
 
       {/* Zona 1: navegación por sistema */}
-      <div className="mb-6">
+      <div className="mb-9">
         <SystemFilters sistemaActivo={sistemaActivo} onSelect={handleSistemaChange} />
       </div>
 

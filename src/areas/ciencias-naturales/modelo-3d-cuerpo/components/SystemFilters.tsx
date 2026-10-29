@@ -13,7 +13,7 @@ export default function SystemFilters({ sistemaActivo, onSelect }: SystemFilters
         type="button"
         onClick={() => onSelect('todos')}
         aria-pressed={sistemaActivo === 'todos'}
-        className={`cursor-pointer font-poppins font-semibold text-sm rounded-full px-5 py-2.5 border transition-colors ${
+        className={`cursor-pointer font-poppins font-semibold text-sm rounded-full px-4 py-2.5 border transition-colors ${
           sistemaActivo === 'todos'
             ? 'bg-verde text-white border-verde'
             : 'bg-white text-negro-suave/70 border-black/10 hover:border-verde/50'
