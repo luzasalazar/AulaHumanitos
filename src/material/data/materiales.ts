@@ -32,6 +32,41 @@ export const TIPO_LABELS: Record<TipoMaterial, string> = {
  *
  */
 export const materiales: Material[] = [
+  {
+    id: 'M001',
+    titulo: 'La Tiendita Actividad',
+    materia: 'matematicas',
+    tipo: 'presentacion',
+    archivo: '/materiales/La_Tiendita_Presentacion.pdf',
+  },
+  {
+    id: 'M002',
+    titulo: 'La Tiendita Actividad',
+    materia: 'matematicas',
+    tipo: 'infografia',
+    archivo: '/materiales/La_Tiendita_Infografia.pdf',
+  },
+  {
+    id: 'M003',
+    titulo: 'Digitalización Humanitos',
+    materia: 'Tecnología',
+    tipo: 'guia',
+    archivo: '/materiales/Guia_Digitalizacion_Humanitos.pdf',
+  },
+  {
+    id: 'M004',
+    titulo: 'IA Humanitos',
+    materia: 'Tecnología',
+    tipo: 'guia',
+    archivo: '/materiales/Guia_IA_Humanitos.pdf',
+  },
+  {
+    id: 'M005',
+    titulo: 'Internet Humanitos',
+    materia: 'Tecnología',
+    tipo: 'guia',
+    archivo: '/materiales/Guia_Internet_Humanitos.pdf',
+  },
   // Ejemplo de cómo se vería una vez agregado un archivo real:
   // {
   //   id: 'M005',

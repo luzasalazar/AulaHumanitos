@@ -1,5 +1,3 @@
-import cuerpoHumanoPreview from '../../assets/previews/cuerpo-humano.png';
-
 export interface Activity {
   id: string;
   title: string;
@@ -31,7 +29,7 @@ export const activitiesByArea: Record<string, Activity[]> = {
       title: 'Cuerpo Humano',
       description: 'Explora los sistemas del cuerpo humano con videos y aprende sobre sus órganos.',
       path: '/ciencias-naturales/cuerpo-humano',
-      image: cuerpoHumanoPreview,
+      image: '/images/previews/cuerpo-humano.jpg',
     },
   ],
   matematicas: [],
