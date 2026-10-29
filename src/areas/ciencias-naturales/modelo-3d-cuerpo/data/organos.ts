@@ -77,7 +77,7 @@ export const organos: Organo[] = [
     sistemas: ["respiratorio"],
     descripcion: "Son dos conductos que se originan en la parte inferior de la tráquea y entran en los pulmones.",
     funcion: "Distribuyen el aire dentro de los pulmones a través de ramificaciones cada vez más pequeñas.",
-    datoCurioso: "El hipo ocurre cuando el diafragma se contrae de repente y hace que tomes aire de forma involuntaria.",
+    datoCurioso: "El bronquio derecho es más ancho y corto que el izquierdo, por eso los objetos que se respiran por accidente suelen llegar al pulmón derecho.",
     color: "#AB47BC",
   },
   {
@@ -86,7 +86,7 @@ export const organos: Organo[] = [
     sistemas: ["respiratorio"],
     descripcion: "Es un músculo ancho situado debajo de los pulmones, que separa el tórax del abdomen.",
     funcion: "Se contrae y se relaja para ayudar a que el aire entre y salga de los pulmones al respirar.",
-    datoCurioso: "Cuando inhalas, el diafragma baja y deja más espacio para que los pulmones se expandan.",
+    datoCurioso: "El hipo ocurre cuando el diafragma se contrae de repente y hace que tomes aire de forma involuntaria.",
     color: "#26A69A",
   },
   {
@@ -95,7 +95,7 @@ export const organos: Organo[] = [
     sistemas: ["circulatorio"],
     descripcion: "Es un músculo situado entre los pulmones, ligeramente hacia la izquierda.",
     funcion: "Bombea la sangre para que circule por todo el cuerpo.",
-    datoCurioso: "Late más de 100.000 veces al día.",
+    datoCurioso: "Bombea cerca de 5 litros de sangre por minuto y late aproximadamente 100.000 veces al día sin descansar.",
     color: "#F8528D",
   },
   {

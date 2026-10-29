@@ -32,7 +32,7 @@ export default function ModeloCuerpo() {
         <SystemFilters sistemaActivo={sistemaActivo} onSelect={handleSistemaChange} />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[1fr_320px]">
         {/* Zona 2: reproductor de video */}
         <div
           className="rounded-3xl overflow-hidden border border-black/5"
