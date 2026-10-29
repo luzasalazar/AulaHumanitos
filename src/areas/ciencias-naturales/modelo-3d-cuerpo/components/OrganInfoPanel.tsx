@@ -34,6 +34,23 @@ export default function OrganInfoPanel({ organoId, sistemaActivo }: OrganInfoPan
         <h3 className="font-poppins font-bold text-lg text-negro-suave">{organo.nombre}</h3>
       </div>
 
+      <div
+        className="relative mb-4 flex h-44 items-center justify-center overflow-hidden rounded-2xl border border-black/5"
+        style={{ background: `linear-gradient(135deg, ${organo.color}24, #FFFFFF 78%)` }}
+      >
+        <span
+          className="absolute -right-7 -top-8 h-24 w-24 rounded-full opacity-30"
+          style={{ backgroundColor: organo.color }}
+          aria-hidden="true"
+        />
+        <img
+          src={`/images/cuerpo-humano/${organo.id.replace('-', '_')}.png`}
+          alt={`Ilustración de ${organo.nombre.toLowerCase()}`}
+          className="relative z-10 h-full w-full object-contain p-3 transition-transform duration-300 hover:scale-105"
+          loading="lazy"
+        />
+      </div>
+
       <p className="font-montserrat text-sm text-negro-suave/80 leading-relaxed mb-3">
         {organo.descripcion}
       </p>
