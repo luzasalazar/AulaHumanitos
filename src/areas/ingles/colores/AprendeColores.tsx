@@ -46,6 +46,7 @@ export default function AprendeColores() {
   const [choices, setChoices] = useState(() => makeChoices(round[0]));
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [correctCount, setCorrectCount] = useState(0);
+  const [madeMistake, setMadeMistake] = useState(false);
 
   const answer = round[questionIndex];
   const isCorrect = selectedColor === answer.name;
@@ -54,7 +55,11 @@ export default function AprendeColores() {
   const handleSelect = (color: Color) => {
     if (selectedColor) return;
     setSelectedColor(color.name);
-    if (color.name === answer.name) setCorrectCount((count) => count + 1);
+    if (color.name === answer.name) {
+      if (!madeMistake) setCorrectCount((count) => count + 1);
+    } else {
+      setMadeMistake(true);
+    }
   };
 
   const handleNext = () => {
@@ -69,6 +74,7 @@ export default function AprendeColores() {
       setQuestionIndex(nextIndex);
       setChoices(makeChoices(round[nextIndex]));
     }
+    setMadeMistake(false);
     setSelectedColor(null);
   };
 
@@ -109,14 +115,9 @@ export default function AprendeColores() {
             <p className="mb-1 font-montserrat text-sm font-medium text-negro-suave/60">
               Toca el color que dice la palabra
             </p>
-            <h1 className="font-poppins text-4xl font-extrabold tracking-wide text-morado sm:text-5xl">
+            <h1 className="font-poppins text-4xl font-extrabold tracking-wide text-black sm:text-5xl">
               {answer.name}
             </h1>
-            <div className="mx-auto mt-2 flex w-fit items-center gap-1.5" aria-hidden="true">
-              {['#F8528D', '#F9E05A', '#33BDF2'].map((color) => (
-                <span key={color} className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: color }} />
-              ))}
-            </div>
           </div>
 
           <div className="grid grid-cols-4 gap-2 sm:gap-5" aria-label="Opciones de color">
@@ -178,7 +179,7 @@ export default function AprendeColores() {
                     : 'bg-orange-500 hover:bg-orange-600 focus-visible:outline-orange-200'
                 }`}
               >
-                {isCorrect ? <><Check size={17} aria-hidden="true" /> {finished ? 'Jugar otra vez' : 'Siguiente'}</> : <><RotateCcw size={16} aria-hidden="true" /> Volver a intentar</>}
+                {isCorrect ? <>{finished ? <RotateCcw size={17} aria-hidden="true" /> : <Check size={17} aria-hidden="true" />} {finished ? 'Jugar otra vez' : 'Siguiente'}</> : <><RotateCcw size={16} aria-hidden="true" /> Volver a intentar</>}
               </button>
             </div>
           )}
