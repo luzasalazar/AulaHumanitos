@@ -20,6 +20,6 @@ export const areaRegistry: Area[] = [
     name: 'Inglés',
     description: 'Aprende vocabulario y practica pronunciación.',
     path: '/ingles',
-    disponible: false,
+    disponible: true,
   },
 ];

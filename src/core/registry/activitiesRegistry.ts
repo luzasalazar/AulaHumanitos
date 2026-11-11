@@ -33,5 +33,13 @@ export const activitiesByArea: Record<string, Activity[]> = {
     },
   ],
   matematicas: [],
-  ingles: [],
+  ingles: [
+    {
+      id: 'colores',
+      title: 'Aprende los colores',
+      description: 'Lee el nombre en inglés y encuentra el color correcto.' ,
+      path: '/ingles/colores',
+      image: '/images/previews/colores-ingles.jpg',
+    },
+  ],
 };

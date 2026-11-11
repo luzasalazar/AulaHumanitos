@@ -4,6 +4,7 @@ import HomeScreen from '../screens/HomeScreen';
 import AreaActivities from '../screens/AreaActivities';
 import BancoMaterial from '../../material/BancoMaterial';
 import ModeloCuerpo from '../../areas/ciencias-naturales/modelo-3d-cuerpo/ModeloCuerpo';
+import AprendeColores from '../../areas/ingles/colores/AprendeColores';
 
 function ScrollToTop() {
   const { key } = useLocation();
@@ -33,6 +34,7 @@ export default function AppRouter() {
         <Route path="/" element={<HomeScreen />} />
         <Route path="/banco-material" element={<BancoMaterial />} />
         <Route path="/ciencias-naturales/cuerpo-humano" element={<ModeloCuerpo />} />
+        <Route path="/ingles/colores" element={<AprendeColores />} />
         <Route path="/:areaId" element={<AreaActivities />} />
       </Routes>
     </HashRouter>
