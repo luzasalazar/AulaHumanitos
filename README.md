@@ -28,8 +28,8 @@ Los datos de cada recurso (título, categoría, tipo y ruta) están en `src/mate
 
 ### Modalidades de uso
 
-- **Escritorio (Tauri):** la interfaz y los recursos de `public/` forman parte de la compilación local. Una vez instalada, la navegación y el contenido local implementado no dependen de Internet, sujeto a que el computador pueda reproducir los videos y abrir los PDF.
-- **Web (Vite):** genera archivos estáticos en `dist/` para publicar en el hosting de Humanitos. El usuario accede al sitio a través del hosting. El repositorio no configura un service worker ni almacenamiento offline del navegador; por tanto, no garantiza que la versión web siga disponible si se pierde la conexión.
+- **Escritorio (Tauri):** la interfaz y los recursos de `public/` forman parte de la compilación local. Una vez instalada, la navegación y el contenido local implementado no dependen de Internet, sujeto a que el computador pueda reproducir los videos.
+- **Web (Vite):** genera archivos estáticos en `dist/` para publicar en el hosting de Humanitos. El usuario accede al sitio a través del hosting.
 
 El acceso offline se refiere a la versión de escritorio instalada y a sus recursos empaquetados. El frontend no consulta APIs o servicios remotos para cargar las actividades y materiales descritos aquí.
 
