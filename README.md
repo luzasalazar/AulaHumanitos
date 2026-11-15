@@ -18,7 +18,7 @@ El catálogo de áreas está definido en `src/core/registry/areaRegistry.ts`; la
 | --- | --- | --- |
 | Ciencias Naturales | Disponible | **Cuerpo Humano**: navegación por los sistemas digestivo, respiratorio, circulatorio y nervioso; reproducción y búsqueda de videos por sistema; lista filtrable de 13 órganos con ilustración, descripción, función y, cuando existe, un dato curioso. |
 | Inglés | Disponible | **Aprende los colores**: presenta el nombre de un color en inglés y cuatro opciones de color. Incluye selección aleatoria, retroalimentación para acierto o error, reintento, avance, indicador de progreso y reinicio tras recorrer los 11 colores configurados. |
-| Matemáticas | Área visible, no disponible | La tarjeta indica “Próximamente” y no permite entrar a actividades. El registro de actividades está vacío. Hay dos recursos de Matemáticas en Banco de Material (La Tiendita), pero no constituyen una actividad interactiva implementada. |
+| Matemáticas | Disponible | **Fracciones de mi tierra**: actividad visual de ocho ejercicios para identificar qué fracción está resaltada. Usa ilustraciones de duraznos de Cácota, fresas, uchuvas y parcelas campesinas; mezcla el orden de los ejercicios y las opciones en cada partida, ofrece retroalimentación y reintentos, lleva el puntaje y permite volver a jugar. |
 
 #### Banco de Material
 
@@ -46,10 +46,12 @@ flowchart TD
     R --> A[Catálogo de actividades por área]
     R --> C[Ciencias: Cuerpo Humano]
     R --> I[Inglés: Aprende los colores]
+    R --> M[Matemáticas: Fracciones de mi tierra]
     R --> B[Banco de Material]
     H --> AR[areaRegistry]
     A --> AC[activitiesRegistry]
     C --> CD[Datos de sistemas, órganos y videos]
+    M --> FD[Ejercicios, fracciones e ilustraciones SVG]
     B --> MD[Registro de materiales]
     CD --> P[Recursos locales en public/images y public/videos]
     MD --> PDF[PDF en public/materiales]
@@ -62,7 +64,7 @@ flowchart TD
     TA --> WEB[WebView con frontend y recursos empaquetados]
 ```
 
-La navegación usa `HashRouter` (`src/core/router/AppRouter.tsx`), con rutas para inicio, Banco de Material, las dos actividades concretas y el catálogo `/:areaId`. La ruta con hash permite la navegación dentro de la app de escritorio sin requerir que el protocolo local resuelva rutas del servidor. Las áreas y actividades se registran en datos TypeScript; las pantallas los consumen para construir sus tarjetas y estados vacíos.
+La navegación usa `HashRouter` (`src/core/router/AppRouter.tsx`), con rutas para inicio, Banco de Material, las tres actividades concretas y el catálogo `/:areaId`. La ruta de **Fracciones de mi tierra** es `/matematicas/fracciones-de-mi-tierra`. La ruta con hash permite la navegación dentro de la app de escritorio sin requerir que el protocolo local resuelva rutas del servidor. Las áreas y actividades se registran en datos TypeScript; las pantallas los consumen para construir sus tarjetas y estados vacíos.
 
 ### Tecnologías y responsabilidades
 
@@ -97,6 +99,8 @@ src/
   areas/
     ciencias-naturales/            Actividad Cuerpo Humano, datos y componentes
     ingles/colores/                Actividad Aprende los colores
+    matematicas/
+      fracciones-de-mi-tierra/     Actividad, ejercicios e ilustraciones SVG
   material/
     BancoMaterial.tsx             Pantalla de búsqueda y filtros
     data/materiales.ts             Catálogo tipado de documentos
@@ -119,11 +123,12 @@ src-tauri/
 - `Layout` mantiene el encabezado con logo, navegación volver/inicio, contenido central y pie de página compartidos.
 - `ModeloCuerpo` coordina el filtro de sistema y la selección de órgano. `SystemFilters`, `OrganList`, `OrganInfoPanel` y `BodyVideo` separan controles, selección, contenido descriptivo y reproducción.
 - `AprendeColores` administra el orden aleatorio, las opciones, los aciertos, errores, reintentos y progreso con estado React local.
+- `FraccionesDeMiTierra` presenta ocho ejercicios con cuatro opciones visuales de fracción, retroalimentación, reintento, avance, puntaje final y reinicio. `datos.ts` define los ejercicios y mezcla su orden y el de las opciones en cada partida; `Ilustraciones.tsx` dibuja duraznos, canastas de fresas y uchuvas, y parcelas mediante SVG.
 - `BancoMaterial` calcula los filtros a partir del catálogo, aplica búsqueda por título y filtros por materia y tipo, y representa cada resultado con `MaterialCard`.
 
 ### Contenidos y recursos multimedia
 
-Los datos pedagógicos están declarados en TypeScript junto a cada módulo: `sistemas.ts`, `organos.ts` y `videos.ts` para Ciencias; constantes locales en `AprendeColores.tsx` para Inglés; y `materiales.ts` para los documentos. No hay CMS ni base de datos en el código examinado. Para añadir un recurso al Banco se copia el archivo a `public/materiales/` y se registra su ruta `/materiales/...` en `materiales.ts`. Para añadir una actividad se crea su pantalla, se registra una ruta en `AppRouter.tsx` y se agrega al área correspondiente en `activitiesRegistry.ts`.
+Los datos pedagógicos están declarados en TypeScript junto a cada módulo: `sistemas.ts`, `organos.ts` y `videos.ts` para Ciencias; constantes locales en `AprendeColores.tsx` para Inglés; `datos.ts` e `Ilustraciones.tsx` para Fracciones de mi tierra; y `materiales.ts` para los documentos. No hay CMS ni base de datos en el código examinado. Para añadir un recurso al Banco se copia el archivo a `public/materiales/` y se registra su ruta `/materiales/...` en `materiales.ts`. Para añadir una actividad se crea su pantalla, se registra una ruta en `AppRouter.tsx` y se agrega al área correspondiente en `activitiesRegistry.ts`.
 
 Las imágenes y videos de Ciencias se referencian con rutas bajo `/images/cuerpo-humano/` y `/videos/cuerpo-humano/`. `BodyVideo` carga el archivo MP4 local con `fetch`, crea una URL `blob:` para permitir búsqueda dentro del video y ofrece reproducción, pausa, control de posición y pantalla completa. Esto implica cargar el video seleccionado en memoria; conviene considerar el tamaño de los medios al preparar nuevas versiones para computadores con recursos limitados. Los activos actuales incluyen cinco MP4, además de imágenes y cinco PDF.
 
