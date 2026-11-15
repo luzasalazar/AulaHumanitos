@@ -97,10 +97,12 @@ src/
     types/                        Tipos compartidos
     ui/                           Layout, tarjetas, estados vacíos y visuales
   areas/
-    ciencias-naturales/            Actividad Cuerpo Humano, datos y componentes
-    ingles/colores/                Actividad Aprende los colores
-    matematicas/
-      fracciones-de-mi-tierra/     Actividad, ejercicios e ilustraciones SVG
+    ciencias-naturales/            
+      modelo-3d-cuerpo/            Actividad Cuerpo Humano, datos y componentes
+    ingles/                        
+      colores/                     Actividad Aprende los colores
+    matematicas/                   
+      fracciones-de-mi-tierra/     Actividad Fracciones, ejercicios e ilustraciones SVG
   material/
     BancoMaterial.tsx             Pantalla de búsqueda y filtros
     data/materiales.ts             Catálogo tipado de documentos
