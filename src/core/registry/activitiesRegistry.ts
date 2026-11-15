@@ -32,7 +32,15 @@ export const activitiesByArea: Record<string, Activity[]> = {
       image: '/images/previews/cuerpo-humano.jpg',
     },
   ],
-  matematicas: [],
+  matematicas: [
+    {
+      id: 'fracciones-de-mi-tierra',
+      title: 'Fracciones de mi tierra',
+      description: 'Ayuda a los campesinos de la región a organizar sus cosechas y repartir sus productos mientras aprendes fracciones.',
+      path: '/matematicas/fracciones-de-mi-tierra',
+      image: '/images/previews/fracciones-de-mi-tierra.jpg',
+    },
+  ],
   ingles: [
     {
       id: 'colores',

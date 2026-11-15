@@ -15,6 +15,10 @@ export default function Layout({ children, eyebrow, eyebrowColor = '#4A9B09' }: 
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
+  const pathSegments = location.pathname.split('/').filter(Boolean);
+  const backPath = pathSegments.length > 1
+    ? `/${pathSegments.slice(0, -1).join('/')}`
+    : '/';
 
   return (
     <div className="min-h-screen bg-gris-claro flex flex-col">
@@ -26,7 +30,7 @@ export default function Layout({ children, eyebrow, eyebrowColor = '#4A9B09' }: 
             {!isHome && (
               <button
                 type="button"
-                onClick={() => navigate(-1)}
+                onClick={() => navigate(backPath, { replace: true })}
                 aria-label="Volver a la página anterior"
                 className="flex items-center gap-2 rounded-full px-3 py-2 font-montserrat text-sm text-white transition-colors hover:bg-white/10 hover:text-amarillo focus-visible:outline focus-visible:outline-2 focus-visible:outline-amarillo"
               >

@@ -63,25 +63,52 @@ export default function AprendeColores() {
   };
 
   const handleNext = () => {
-    if (questionIndex === COLORS.length - 1) {
-      const nextRound = makeRound(round[0].name);
-      setRound(nextRound);
-      setQuestionIndex(0);
-      setChoices(makeChoices(nextRound[0]));
-      setCorrectCount(0);
-    } else {
-      const nextIndex = questionIndex + 1;
-      setQuestionIndex(nextIndex);
-      setChoices(makeChoices(round[nextIndex]));
-    }
+    const nextIndex = questionIndex + 1;
+    setQuestionIndex(nextIndex);
+    setChoices(makeChoices(round[nextIndex]));
     setMadeMistake(false);
     setSelectedColor(null);
   };
 
   const handleRetry = () => setSelectedColor(null);
+  const handleRestart = () => {
+    const nextRound = makeRound();
+    setRound(nextRound);
+    setQuestionIndex(0);
+    setChoices(makeChoices(nextRound[0]));
+    setSelectedColor(null);
+    setCorrectCount(0);
+    setMadeMistake(false);
+  };
 
   return (
     <Layout eyebrow="Inglés" eyebrowColor="#F8528D">
+      {finished ? (
+        <section className="mx-auto max-w-3xl rounded-[2rem] border border-pink-100 bg-white p-6 text-center shadow-[0_16px_50px_-30px_rgba(136,43,142,0.45)] sm:p-10">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-pink-50 text-pink-600">
+            <Sparkles size={26} aria-hidden="true" />
+          </div>
+          <h1 className="mt-4 font-poppins text-3xl font-extrabold text-morado sm:text-4xl">¡Terminaste!</h1>
+          <p className="mt-5 font-poppins text-5xl font-bold text-verde sm:text-6xl" aria-live="polite">
+            {correctCount} de {COLORS.length}
+          </p>
+          <p className="mt-2 text-lg font-semibold">respuestas correctas</p>
+          <p className="mt-4 text-lg">
+            {correctCount === COLORS.length
+              ? '¡Perfecto! Reconociste todos los colores.'
+              : correctCount >= 8
+                ? '¡Muy buen trabajo! Sigue practicando para aprender aún más.'
+                : '¡Sigue practicando! Cada intento te enseña algo nuevo.'}
+          </p>
+          <button
+            type="button"
+            onClick={handleRestart}
+            className="mx-auto mt-7 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-emerald-600 px-6 py-2.5 font-poppins text-sm font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-emerald-700 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-emerald-200"
+          >
+            <RotateCcw size={17} aria-hidden="true" /> Jugar otra vez
+          </button>
+        </section>
+      ) : (
       <section className="relative mx-auto max-w-5xl overflow-hidden rounded-[2rem] border border-pink-100 bg-white shadow-[0_16px_50px_-30px_rgba(136,43,142,0.45)]">
         <div className="absolute -right-10 -top-12 h-36 w-36 rounded-full bg-yellow-100/70" aria-hidden="true" />
         <div className="absolute -bottom-16 -left-12 h-40 w-40 rounded-full bg-pink-100/60" aria-hidden="true" />
@@ -192,6 +219,7 @@ export default function AprendeColores() {
           )}
         </div>
       </section>
+      )}
     </Layout>
   );
 }

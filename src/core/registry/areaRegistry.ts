@@ -13,7 +13,7 @@ export const areaRegistry: Area[] = [
     name: 'Matemáticas',
     description: 'Practica sumas, multiplicaciones, divisiones y fracciones.',
     path: '/matematicas',
-    disponible: false,
+    disponible: true,
   },
   {
     id: 'ingles',
