@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Check, Lightbulb, RotateCcw, Sparkles } from 'lucide-react';
+import { Check, CircleHelp, Lightbulb, RotateCcw, Sparkles } from 'lucide-react';
 import Layout from '../../../core/ui/Layout';
 import {
   FELICITACIONES,
@@ -11,6 +11,7 @@ import {
   type Fraccion,
 } from './datos';
 import { Ilustracion } from './Ilustraciones';
+import { DialogoAyuda, PantallaIntro } from './Explicacion';
 
 const TOTAL = 8;
 
@@ -35,6 +36,8 @@ function mensajeFinal(aciertos: number) {
 }
 
 export default function FraccionesDeMiTierra() {
+  const [mostrarIntro, setMostrarIntro] = useState(true);
+  const [ayudaAbierta, setAyudaAbierta] = useState(false);
   const [partida, setPartida] = useState(() => crearPartida());
   const [indice, setIndice] = useState(0);
   const [seleccionada, setSeleccionada] = useState<string | null>(null);
@@ -74,7 +77,9 @@ export default function FraccionesDeMiTierra() {
 
   return (
     <Layout eyebrow="Matemáticas">
-      {terminado ? (
+      {mostrarIntro ? (
+        <PantallaIntro onEmpezar={() => setMostrarIntro(false)} />
+      ) : terminado ? (
         <section className="mx-auto max-w-3xl rounded-[2rem] border border-pink-100 bg-white p-6 text-center shadow-[0_16px_50px_-30px_rgba(136,43,142,0.45)] sm:p-10">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-pink-50 text-pink-600">
             <Sparkles size={26} aria-hidden="true" />
@@ -104,9 +109,18 @@ export default function FraccionesDeMiTierra() {
                 <Sparkles size={17} className="shrink-0" aria-hidden="true" />
                 <span className="truncate font-poppins text-xs font-semibold sm:text-sm">{TITULOS[ejercicio.diseno]}</span>
               </div>
-              <span className="shrink-0 font-montserrat text-xs font-semibold text-negro-suave/50 sm:text-sm">
-                {indice + 1} de {TOTAL}
-              </span>
+              <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+                <span className="font-montserrat text-xs font-semibold text-negro-suave/50 sm:text-sm">
+                  {indice + 1} de {TOTAL}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setAyudaAbierta(true)}
+                  className="inline-flex min-h-10 items-center gap-1.5 rounded-full border-2 border-purple-200 bg-purple-50 px-3 py-1.5 font-poppins text-sm font-bold text-morado transition hover:-translate-y-0.5 hover:bg-purple-100 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-morado"
+                >
+                  <CircleHelp size={18} aria-hidden="true" /> Ayuda
+                </button>
+              </div>
             </div>
 
             <div
@@ -215,6 +229,7 @@ export default function FraccionesDeMiTierra() {
           </div>
         </section>
       )}
+      <DialogoAyuda abierto={ayudaAbierta} onCerrar={() => setAyudaAbierta(false)} />
     </Layout>
   );
 }

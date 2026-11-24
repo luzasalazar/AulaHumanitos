@@ -42,7 +42,7 @@ export default function Layout({ children, eyebrow, eyebrowColor = '#4A9B09' }: 
 
           {/* Centro: logo + título */}
           <div className="flex justify-center">
-            <Link to="/" className="flex items-center gap-3">
+            <div className="flex items-center gap-3">
               <img
                 src={logo}
                 alt="Fundación Humanitos"
@@ -52,7 +52,7 @@ export default function Layout({ children, eyebrow, eyebrowColor = '#4A9B09' }: 
               <span className="font-poppins font-bold text-xl text-white tracking-tight">
                 Aula<span className="text-amarillo">Humanitos</span>
               </span>
-            </Link>
+            </div>
           </div>
 
           {/* Derecha: inicio */}

@@ -1,37 +1,81 @@
+import { useId } from 'react';
 import type { Ejercicio } from './datos';
 
 /* Resaltado = color fuerte con borde sólido.
    No resaltado = color pálido con borde punteado (se distingue sin depender solo del color). */
 
+/* Contorno de durazno: redondeado, un poco más ancho que alto y con la hendidura arriba. */
+const CONTORNO_DURAZNO =
+  "M150 82 C172 60 252 66 254 152 C256 228 206 264 150 264 C94 264 44 228 46 152 C48 66 128 60 150 82 Z";
+
 function Durazno({ total, resaltados }: { total: number; resaltados: number }) {
+  const uid = useId().replace(/:/g, "");
+  const ids = { forma: `forma-${uid}`, piel: `piel-${uid}`, palido: `palido-${uid}` };
   const cx = 150;
-  const cy = 165;
-  const r = 100;
+  const cy = 168;
+  const r = 150; // más grande que el durazno; el recorte le da la forma
   const punto = (grados: number) => {
     const rad = ((grados - 90) * Math.PI) / 180;
     return [cx + r * Math.cos(rad), cy + r * Math.sin(rad)];
   };
+  const sector = (i: number) => {
+    const [x1, y1] = punto((i * 360) / total);
+    const [x2, y2] = punto(((i + 1) * 360) / total);
+    return `M${cx} ${cy} L${x1} ${y1} A${r} ${r} 0 0 1 ${x2} ${y2} Z`;
+  };
+  const indices = Array.from({ length: total }, (_, i) => i);
+  // Primero las partes sin colorear, luego las coloreadas para que su borde sólido quede encima.
+  const orden = [...indices.filter((i) => i >= resaltados), ...indices.filter((i) => i < resaltados)];
   return (
     <svg viewBox="0 0 300 280" className="h-full w-full" role="img"
       aria-label={`Un durazno dividido en ${total} partes iguales, ${resaltados} coloreadas`}>
-      {Array.from({ length: total }, (_, i) => {
-        const [x1, y1] = punto((i * 360) / total);
-        const [x2, y2] = punto(((i + 1) * 360) / total);
-        const activa = i < resaltados;
-        return (
-          <path
-            key={i}
-            d={`M${cx} ${cy} L${x1} ${y1} A${r} ${r} 0 0 1 ${x2} ${y2} Z`}
-            fill={activa ? "#FFA94D" : "#FFF4DE"}
-            stroke={activa ? "#B85A14" : "#C9A66B"}
-            strokeWidth={activa ? 4 : 3}
-            strokeDasharray={activa ? undefined : "6 5"}
-            strokeLinejoin="round"
-          />
-        );
-      })}
-      <path d={`M${cx} 68 Q${cx + 4} 48 ${cx + 12} 36`} stroke="#6B4423" strokeWidth="7" strokeLinecap="round" fill="none" />
-      <path d={`M${cx + 10} 52 Q${cx + 50} 14 ${cx + 92} 40 Q${cx + 56} 74 ${cx + 10} 52 Z`} fill="#4A9B09" stroke="#2F6A05" strokeWidth="3" />
+      <defs>
+        <clipPath id={ids.forma}>
+          <path d={CONTORNO_DURAZNO} />
+        </clipPath>
+        {/* Piel del durazno: amarillo dorado que pasa a naranja y a rojo rosado. */}
+        <radialGradient id={ids.piel} cx="105" cy="120" r="190" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#FFE08A" />
+          <stop offset="0.35" stopColor="#FFB45C" />
+          <stop offset="0.7" stopColor="#F27A45" />
+          <stop offset="1" stopColor="#D4483A" />
+        </radialGradient>
+        <radialGradient id={ids.palido} cx="105" cy="120" r="190" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#FFF8EC" />
+          <stop offset="1" stopColor="#FBE3D2" />
+        </radialGradient>
+      </defs>
+
+      <ellipse cx="150" cy="268" rx="88" ry="8" fill="#000" opacity="0.08" />
+
+      <g clipPath={`url(#${ids.forma})`}>
+        {orden.map((i) => {
+          const activa = i < resaltados;
+          return (
+            <path
+              key={i}
+              d={sector(i)}
+              fill={activa ? `url(#${ids.piel})` : `url(#${ids.palido})`}
+              stroke={activa ? "#8E2F17" : "#C99A7A"}
+              strokeWidth={activa ? 4 : 3}
+              strokeDasharray={activa ? undefined : "6 5"}
+              strokeLinejoin="round"
+            />
+          );
+        })}
+        {/* Brillo suave de la piel */}
+        <ellipse cx="108" cy="120" rx="26" ry="16" fill="#FFFFFF" opacity="0.28" transform="rotate(-35 108 120)" />
+        {/* Hendidura natural del durazno, a la derecha del tallo y separada de las divisiones
+            (queda entre las líneas de 0° y 45° cuando hay 4 u 8 partes). */}
+        <path d="M152 82 Q172 94 171 130" stroke="#8E2F17" strokeWidth="3" strokeLinecap="round" fill="none" opacity="0.35" />
+      </g>
+
+      <path d={CONTORNO_DURAZNO} fill="none" stroke="#9C3B1E" strokeWidth="4" strokeLinejoin="round" />
+
+      {/* Tallo y hoja */}
+      <path d="M150 84 Q151 64 160 50" stroke="#6B4423" strokeWidth="7" strokeLinecap="round" fill="none" />
+      <path d="M158 58 Q196 22 238 44 Q204 82 158 58 Z" fill="#4A9B09" stroke="#2F6A05" strokeWidth="3" strokeLinejoin="round" />
+      <path d="M162 57 Q198 46 230 46" stroke="#2F6A05" strokeWidth="2" strokeLinecap="round" fill="none" />
     </svg>
   );
 }
@@ -103,6 +147,8 @@ function Canasta({ total, resaltados, tipo }: { total: number; resaltados: numbe
   );
 }
 
+/* Vista desde arriba: las parcelas cultivadas muestran surcos con matas verdes;
+   las no resaltadas son tierra arada pálida con borde punteado. */
 function Parcelas({ total, resaltados, columnas }: { total: number; resaltados: number; columnas: number }) {
   const filas = Math.ceil(total / columnas);
   const celda = Math.min(300 / columnas, 190 / filas);
@@ -110,31 +156,56 @@ function Parcelas({ total, resaltados, columnas }: { total: number; resaltados: 
   const alto = celda * filas;
   const x0 = (360 - ancho) / 2;
   const y0 = (260 - alto) / 2;
+  const margen = 3;
+  const lado = celda - margen * 2;
+  const surcos = [0.2, 0.4, 0.6, 0.8];
+  const matas = [0.17, 0.39, 0.61, 0.83];
   return (
     <svg viewBox="0 0 360 260" className="h-full w-full" role="img"
       aria-label={`Un terreno rectangular dividido en ${total} parcelas iguales, ${resaltados} resaltadas`}>
-      <rect x={x0 - 10} y={y0 - 10} width={ancho + 20} height={alto + 20} rx="10" fill="#E8D9B5" stroke="#7A4A1D" strokeWidth="4" />
+      {/* Pasto alrededor del terreno */}
+      <rect x={x0 - 14} y={y0 - 14} width={ancho + 28} height={alto + 28} rx="14" fill="#A9D46F" stroke="#5E8A2E" strokeWidth="4" />
+      {/* Caminos entre parcelas */}
+      <rect x={x0 - 2} y={y0 - 2} width={ancho + 4} height={alto + 4} rx="6" fill="#E3CFA0" />
       {Array.from({ length: total }, (_, i) => {
-        const x = x0 + (i % columnas) * celda;
-        const y = y0 + Math.floor(i / columnas) * celda;
+        const col = i % columnas;
+        const fila = Math.floor(i / columnas);
+        const x = x0 + col * celda + margen;
+        const y = y0 + fila * celda + margen;
         const activa = i < resaltados;
+        // Surcos horizontales o verticales alternados, como un mosaico de cultivos.
+        const horizontal = (col + fila) % 2 === 0;
+        const pos = (a: number, b: number) =>
+          horizontal ? [x + b * lado, y + a * lado] : [x + a * lado, y + b * lado];
         return (
           <g key={i}>
             <rect
-              x={x + 2} y={y + 2} width={celda - 4} height={celda - 4} rx="6"
-              fill={activa ? "#4A9B09" : "#F4EBD2"}
+              x={x} y={y} width={lado} height={lado} rx="4"
+              fill={activa ? "#8A5A2B" : "#F1E4C6"}
               stroke={activa ? "#2F6A05" : "#B7A06A"}
               strokeWidth={activa ? 3 : 2.5}
               strokeDasharray={activa ? undefined : "6 4"}
             />
-            {activa && (
-              <path
-                d={`M${x + celda / 2} ${y + celda * 0.72} L${x + celda / 2} ${y + celda * 0.4}
-                    M${x + celda / 2} ${y + celda * 0.52} Q${x + celda * 0.3} ${y + celda * 0.5} ${x + celda * 0.3} ${y + celda * 0.32}
-                    M${x + celda / 2} ${y + celda * 0.46} Q${x + celda * 0.7} ${y + celda * 0.44} ${x + celda * 0.7} ${y + celda * 0.26}`}
-                stroke="#F9E05A" strokeWidth="4" strokeLinecap="round" fill="none"
-              />
-            )}
+            {surcos.map((a) => {
+              const [xa, ya] = pos(a, 0.1);
+              const [xb, yb] = pos(a, 0.9);
+              return (
+                <line key={a} x1={xa} y1={ya} x2={xb} y2={yb}
+                  stroke={activa ? "#6B4220" : "#D6C094"} strokeWidth={activa ? lado * 0.1 : 2} strokeLinecap="round" />
+              );
+            })}
+            {activa &&
+              surcos.flatMap((a) =>
+                matas.map((b) => {
+                  const [mx, my] = pos(a, b);
+                  return (
+                    <g key={`${a}-${b}`}>
+                      <circle cx={mx} cy={my} r={lado * 0.085} fill="#3D8C0A" />
+                      <circle cx={mx - lado * 0.025} cy={my - lado * 0.025} r={lado * 0.04} fill="#7CCB33" />
+                    </g>
+                  );
+                }),
+              )}
           </g>
         );
       })}
