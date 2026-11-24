@@ -33,7 +33,10 @@ export default function AppRouter() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomeScreen />} />
-        <Route path="/banco-material" element={<BancoMaterial />} />
+        {/* El Banco de Material es para docentes: no se incluye en la app de escritorio (modo "escritorio"). */}
+        {import.meta.env.MODE !== 'escritorio' && (
+          <Route path="/banco-material" element={<BancoMaterial />} />
+        )}
         <Route path="/ciencias-naturales/cuerpo-humano" element={<ModeloCuerpo />} />
         <Route path="/ingles/colores" element={<AprendeColores />} />
         <Route path="/matematicas/fracciones-de-mi-tierra" element={<FraccionesDeMiTierra />} />

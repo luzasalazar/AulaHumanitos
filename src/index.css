@@ -65,7 +65,23 @@
   font-style: normal;
   font-display: swap;
 }
- 
+
+/* Escala general de la interfaz: casi todos los tamaños de Tailwind (textos, espacios,
+   anchos, alturas) están en rem, así que bajar la base de 16px a 14px reduce toda la app
+   en proporción, como un "zoom out" del 87.5 %. Se usa % para respetar la configuración
+   de tamaño de letra del navegador. Ajustar este valor si se quiere más o menos grande. */
+html {
+  font-size: 87.5%;
+}
+
+/* Sin efecto elástico al seguir desplazando en el borde (touchpad o pantalla táctil),
+   y con el mismo fondo de la app para que nunca aparezca un borde blanco. */
+html,
+body {
+  overscroll-behavior: none;
+  background-color: var(--color-gris-claro);
+}
+
 body {
   font-family: 'Montserrat', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
