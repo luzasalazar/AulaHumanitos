@@ -18,7 +18,7 @@ export default function AreaCard({ area }: AreaCardProps) {
     >
       <div className="h-2" style={{ backgroundColor: visual.color }} aria-hidden="true" />
 
-      <div className="flex flex-col flex-1 p-7">
+      <div className="flex flex-col flex-1 items-center p-7 text-center sm:items-stretch sm:text-left">
         <div
           className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
           style={{ backgroundColor: visual.tint }}

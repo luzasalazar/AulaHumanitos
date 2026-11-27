@@ -18,7 +18,7 @@ export const PREGUNTAS: Record<Diseno, string> = {
   durazno: "¿Qué fracción del durazno está coloreada?",
   fresas: "¿Qué fracción de las fresas está resaltada?",
   uchuvas: "¿Qué fracción de las uchuvas está resaltada?",
-  parcelas: "¿Qué fracción del terreno está resaltada?",
+  parcelas: "¿Qué fracción del terreno está sembrado?",
 };
 
 export const TITULOS: Record<Diseno, string> = {
